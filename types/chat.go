@@ -8,5 +8,11 @@ type Chat struct {
 	LastMessageAt  time.Time `json:"last_message_at"`
 	Viewed         bool      `json:"viewed"`
 	ViewedAt       time.Time `json:"viewed_at"`
-	Users          User      `json:"users"`
+	Users          *ChatUser `json:"user"`
+}
+
+type ChatUser struct {
+	ID       int64  `json:"id"`
+	Username string `json:"username"`
+	AvatarID int64  `json:"avatar_id"`
 }
