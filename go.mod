@@ -3,12 +3,13 @@ module github.com/SafetyLink/commons
 go 1.20
 
 require (
+	github.com/form3tech-oss/jwt-go v3.2.5+incompatible
 	github.com/gofiber/fiber/v2 v2.44.0
+	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/spf13/viper v1.15.0
 	go.opentelemetry.io/otel v1.14.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.14.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.14.0
-	go.opentelemetry.io/otel/exporters/stdout/stdouttrace v1.14.0
 	go.opentelemetry.io/otel/sdk v1.14.0
 	go.opentelemetry.io/otel/trace v1.14.0
 	go.uber.org/zap v1.24.0
