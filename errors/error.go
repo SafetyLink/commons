@@ -13,3 +13,7 @@ var (
 func Is(err error, target error) bool {
 	return errors.Is(err, target)
 }
+
+func New(msg string) error {
+	return errors.New(msg)
+}
