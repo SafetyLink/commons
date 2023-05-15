@@ -12,16 +12,19 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.17.0"
 	"go.opentelemetry.io/otel/trace"
 	"log"
+	"os"
 )
 
 var (
-	serviceName    = "test-go-server-collector"
-	serviceVersion = "0.1.0"
-	collectorAddr  = "localhost:4317"
-	lsEnvironment  = "dev"
+	serviceName    string
+	serviceVersion string
+	collectorAddr  string
+	lsEnvironment  string
 )
 
 func newExporter(ctx context.Context) (*otlptrace.Exporter, error) {
+	collectorAddr = os.Getenv("COLLECTOR_URL")
+
 	exporter, err :=
 		otlptracegrpc.New(ctx,
 			// WithInsecure lets us use http instead of https (for local dev only).
@@ -33,6 +36,10 @@ func newExporter(ctx context.Context) (*otlptrace.Exporter, error) {
 }
 
 func newTraceProvider(exp *otlptrace.Exporter) *sdktrace.TracerProvider {
+	serviceName = os.Getenv("LIGHTSTEP_SERVICE_NAME")
+	serviceVersion = os.Getenv("LIGHTSTEP_SERVICE_VERSION")
+	lsEnvironment = os.Getenv("LIGHTSTEP_ENVIRONMENT")
+
 	resource, rErr :=
 		resource.Merge(
 			resource.Default(),
@@ -63,7 +70,8 @@ func InitTracer() trace.Tracer {
 	}
 
 	tp := newTraceProvider(exp)
-	defer func() { _ = tp.Shutdown(ctx) }()
+
+	//defer func() { _ = tp.Shutdown(ctx) }()
 
 	otel.SetTracerProvider(tp)
 

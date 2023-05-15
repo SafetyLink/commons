@@ -2,11 +2,18 @@ package otel
 
 import (
 	"context"
+	"github.com/joho/godotenv"
 	"testing"
 	"time"
 )
 
 func TestTrace(t *testing.T) {
+	//load env file
+	err := godotenv.Load(".env")
+	if err != nil {
+		panic(err)
+	}
+
 	tracer := InitTracer()
 	ctx := context.Background()
 
